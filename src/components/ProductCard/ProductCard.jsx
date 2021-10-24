@@ -1,6 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router";
+
+import { useData } from "../../context/DataProvider";
+import { isItemPresent } from "../../utils/utils";
 
 export const ProductCard = ({ product }) => {
+  const {
+    data: { cartItems },
+    dispatch,
+  } = useData();
+
+  const navigate = useNavigate();
+
+  const addToCartHandler = () => {
+    !isItemPresent(cartItems, product.id)
+      ? dispatch({ type: "ADD_TO_CART", payload: product })
+      : navigate("/cart");
+  };
+
   return (
     <div className="flex flex-col items-center w-full">
       <img src={product.image} alt="product" className="w-52 h-64" />
@@ -15,8 +32,11 @@ export const ProductCard = ({ product }) => {
           {product.discountPercent}% off
         </span>
       </div>
-      <button className="bg-gray-200 px-4 py-1 mt-2 rounded-md w-11/12 mx-auto">
-        Add to cart
+      <button
+        className="bg-gray-200 px-4 py-1 mt-2 rounded-md w-11/12 mx-auto"
+        onClick={addToCartHandler}
+      >
+        {!isItemPresent(cartItems, product.id) ? "Add to cart" : "Go to cart"}
       </button>
     </div>
   );

@@ -10,7 +10,7 @@ export const ProductListing = () => {
       <Navbar />
       <div className="grid grid-cols-4 max-w-5xl gap-6 mx-auto mt-10 mb-8">
         {products.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard product={product} key={product.id} />
         ))}
       </div>
     </>
