@@ -16,7 +16,9 @@ export const TotalCard = () => {
 
   const getTotalDiscount = (cartItems) => {
     const discountedPrice = cartItems.reduce(
-      (total, product) => total + product.actualPrice - product.discountPrice,
+      (total, product) =>
+        total +
+        (product.actualPrice - product.discountPrice) * product.quantity,
       0
     );
     return discountedPrice;
